@@ -18,6 +18,5 @@ public class DiscordRichPresence {
         DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(new ReadyListener()).build();
         DiscordRPC.discordInitialize(clientID, handlers, true);
 
-
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?scenebuilder-background-color 0x2c2f33ff?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ea5e00" height="31.999900817871094" stroke="TRANSPARENT" strokeType="INSIDE" width="1200.0" />
+    <ImageView id="button_minimize" fitHeight="27.0" fitWidth="27.0" layoutX="1139.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView id="button_close" fitHeight="27.0" fitWidth="27.0" layoutX="1166.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+    <Rectangle id="visualisor_top" arcHeight="15.0" arcWidth="15.0" height="238.0" layoutX="914.0" layoutY="185.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="269.0">
+      <fill>
+        <Color blue="0.855" green="0.537" red="0.447" fx:id="x3" />
+      </fill>
+    </Rectangle>
+    <Rectangle id="visualisor_bottom" arcHeight="15.0" arcWidth="15.0" height="67.0" layoutX="914.0" layoutY="518.0" strokeType="INSIDE" strokeWidth="0.0" width="269.0">
+      <fill>
+        <Color blue="0.812" green="0.510" red="0.427" fx:id="x1" />
+      </fill>
+      <stroke>
+        <Color blue="0.035" green="0.035" opacity="0.000" red="0.055" fx:id="x2" />
+      </stroke>
+    </Rectangle>
+    <Rectangle id="visualisor_middle" fill="$x1" height="166.0" layoutX="914.0" layoutY="385.0" stroke="$x2" strokeType="INSIDE" strokeWidth="0.0" width="269.0" />
+    <Circle fx:id="avatar" fill="DODGERBLUE" layoutX="1049.0" layoutY="280.0" radius="48.25" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+    <Circle id="visualisor_status_1" fill="$x3" layoutX="1086.0" layoutY="313.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+    <Circle id="visualisor_status_2" fill="#87cfaf" layoutX="1086.0" layoutY="313.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+    <Circle id="visualisor_status_3" fill="#43b581" layoutX="1086.0" layoutY="313.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+    <Label id="username" alignment="CENTER" labelFor="$avatar" layoutX="914.0" layoutY="345.0" prefWidth="269.0" textFill="#999999" />
+    <HBox id="DISCORD_USERNAME" alignment="CENTER" layoutX="914.0" layoutY="331.0" prefHeight="20.0" prefWidth="269.0" />
+  </children>
+</AnchorPane>
