@@ -13,7 +13,7 @@ public class ReadyListener implements ReadyCallback {
     private boolean userFound = false;
 
     public ReadyListener() {
-        System.out.println("I'm listening");
+        Logger.SUCCESS.out("Successfully started listening for callback.");
         new Thread(() -> {
             while (!userFound) {
                 DiscordRPC.discordRunCallbacks();

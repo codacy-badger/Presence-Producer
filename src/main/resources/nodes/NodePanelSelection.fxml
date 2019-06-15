@@ -15,7 +15,7 @@
         <Color blue="0.000" green="0.369" red="0.918" fx:id="x1" />
       </fill>
     </Rectangle>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ea5e0000" height="598.0" layoutX="0.0" layoutY="2.0" smooth="true" stroke="$x1" strokeType="INSIDE" strokeWidth="2.4" width="196.00001525878906" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ea5e0000" height="598.0" layoutX="189.0" layoutY="2.0" smooth="true" stroke="$x1" strokeType="INSIDE" strokeWidth="2.4" width="2.0" />
     <Rectangle id="label_selection_profiles_box" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="7.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="182.0">
       <fill>
         <Color blue="1.000" green="0.565" opacity="0.000" red="0.118" fx:id="x2" />

@@ -19,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class PanelBackground {
 
@@ -101,7 +102,16 @@ public class PanelBackground {
         exitNode.setOnMouseExited(event -> exitNode.setCursor(Cursor.DEFAULT));
         exitNode.setOnMouseClicked(event -> {
             //todo: Close the program, lol
-            Logger.SUCCESS.out("Program closed successfully. Bye!");
+
+            long millis = System.currentTimeMillis() - mainApplication.startDate;
+            String length = String.format("%02d minutes and %02d seconds",
+                    TimeUnit.MILLISECONDS.toMinutes(millis),
+                    TimeUnit.MILLISECONDS.toSeconds(millis) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
+            );
+
+
+            Logger.SUCCESS.out("Program closed successfully. Bye! (" + length + ").");
 
             //This will minimize the application so it'll look like it's closing faster.
             mainApplication.stage.setIconified(true);

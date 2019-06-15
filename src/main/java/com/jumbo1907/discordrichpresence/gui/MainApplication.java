@@ -3,16 +3,11 @@ package com.jumbo1907.discordrichpresence.gui;
 import com.jumbo1907.discordrichpresence.FixedVariables;
 import com.jumbo1907.discordrichpresence.gui.nodes.PanelBackground;
 import com.jumbo1907.discordrichpresence.gui.nodes.PanelSelection;
-import com.jumbo1907.discordrichpresence.utils.Logger;
+import com.jumbo1907.discordrichpresence.gui.nodes.SectionType;
 import javafx.animation.ParallelTransition;
-import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.LabelBuilder;
@@ -23,7 +18,6 @@ import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -43,13 +37,14 @@ public class MainApplication {
     public Scene scene;
     private Group root;
 
-    private long startDate = System.currentTimeMillis();
+    public long startDate = System.currentTimeMillis();
     private Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Whitney-Semibold.otf"), 18);
 
     private PanelBackground panelBackground;
     private PanelSelection panelSelection;
 
     public ParallelTransition visualiserAnimation;
+
     public void start(Stage primaryStage) {
         //Load the nodes
         panelBackground = new PanelBackground(this);
@@ -75,6 +70,8 @@ public class MainApplication {
         //Add font to selection
         panelSelection.addFonts();
         panelSelection.addHovers();
+        panelSelection.updateSelectedColor(null);
+        panelSelection.addClickListener();
 
         //Add theme
         scene.getStylesheets().add(getClass().getClassLoader().getResource("themes/jbootx3.css").toExternalForm());

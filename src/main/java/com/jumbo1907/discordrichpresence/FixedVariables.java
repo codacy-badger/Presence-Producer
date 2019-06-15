@@ -23,6 +23,8 @@ public class FixedVariables {
     public static final String COLOR_BLURPLE_DARKER = "#6D82CF";
 
 
+    //Section
+    //public static final
 
 
 }
