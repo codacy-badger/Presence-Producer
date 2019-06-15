@@ -1,6 +1,8 @@
 package com.jumbo1907.discordrichpresence.gui;
 
 import com.jumbo1907.discordrichpresence.FixedVariables;
+import com.jumbo1907.discordrichpresence.gui.nodes.PanelBackground;
+import com.jumbo1907.discordrichpresence.gui.nodes.PanelSelection;
 import com.jumbo1907.discordrichpresence.utils.Logger;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
@@ -12,6 +14,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.LabelBuilder;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,103 +38,52 @@ import java.net.URLConnection;
 
 public class MainApplication {
 
-    public MainApplication() {
 
-    }
-
-    private Stage stage;
-    private Scene scene;
+    public Stage stage;
+    public Scene scene;
     private Group root;
-    private ParallelTransition visualiserAnimation;
-    private long startDate = System.currentTimeMillis();
 
-    public void start(Stage primaryStage) throws IOException {
+    private long startDate = System.currentTimeMillis();
+    private Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Whitney-Semibold.otf"), 18);
+
+    private PanelBackground panelBackground;
+    private PanelSelection panelSelection;
+
+    public ParallelTransition visualiserAnimation;
+    public void start(Stage primaryStage) {
+        //Load the nodes
+        panelBackground = new PanelBackground(this);
+        panelSelection = new PanelSelection(this);
+
         stage = primaryStage;
 
         //Remove the top bar
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
-        //The orange bar
-        Rectangle rectangle = new Rectangle();
-        rectangle.setWidth(FixedVariables.GUI_WIDTH);
-        rectangle.setHeight(FixedVariables.GUI_HEIGHT);
-        rectangle.setFill(Color.valueOf(FixedVariables.COLOR_ORANGE));
-
-        //The logo
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("logo.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.setX(FixedVariables.GUI_WIDTH / 2 - 100);
-        imageView.setY(FixedVariables.GUI_HEIGHT / 2 - 100);
-        imageView.setFitHeight(200);
-        imageView.setFitWidth(200);
-        imageView.setPreserveRatio(true);
-
-        ParallelTransition parallelTransition = new ParallelTransition(addStartupAnimation(imageView, true), addStartupAnimation(rectangle, false));
-        parallelTransition.play();
-
-        root = new Group(FXMLLoader.load(getClass().getClassLoader().getResource("design.fxml")), rectangle, imageView);
+        root = new Group(panelBackground.getNode(), panelSelection.getNode(), panelBackground.getRectangle(), panelBackground.getImageView());
         addGuiMovingListeners(root);
-
         scene = new Scene(root, 1200, 600);
+
+        //This will add the layout background has
+        panelBackground.addLayout();
+
 
         //Add minimize button
         ImageView minimizeNode = (ImageView) scene.lookup("#button_minimize");
-        minimizeNode.setImage(new Image(getClass().getClassLoader().getResourceAsStream("button_minimize.png")));
+        minimizeNode.setImage(new Image(getClass().getClassLoader().getResourceAsStream("images/button_minimize.png")));
 
-        //Add close button
-        ImageView exitNode = (ImageView) scene.lookup("#button_close");
-        exitNode.setImage(new Image(getClass().getClassLoader().getResourceAsStream("button_close.png")));
+        //Add font to selection
+        panelSelection.addFonts();
+        panelSelection.addHovers();
 
-        //Default avatar
-        Circle avatar = (Circle) scene.lookup("#avatar");
-        avatar.setFill(new ImagePattern(new Image(getClass().getClassLoader().getResourceAsStream("default_avatar.png"))));
-
-        //Add button functionality
-        addButtonInteraction(scene);
-
-        //Add animation for visualiser
-        visualiserAnimation = new ParallelTransition(
-                addVisualiserAnimation(scene.lookup("#visualisor_top"), 0),
-                addVisualiserAnimation(scene.lookup("#visualisor_middle"), 0),
-                addVisualiserAnimation(scene.lookup("#visualisor_bottom"), 0),
-                addVisualiserAnimation(scene.lookup("#visualisor_status_1"), 100),
-                addVisualiserAnimation(scene.lookup("#visualisor_status_2"), 300),
-                addVisualiserAnimation(scene.lookup("#visualisor_status_3"), 400),
-                addVisualiserAnimation(scene.lookup("#avatar"), 100)
-        );
+        //Add theme
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("themes/jbootx3.css").toExternalForm());
 
         scene.setFill(Color.valueOf(FixedVariables.COLOR_DARK));
         primaryStage.setTitle(FixedVariables.GUI_NAME);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-    }
-
-    private TranslateTransition addStartupAnimation(Node node, boolean picture) {
-        TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setNode(node);
-
-        if (picture) {
-            translateTransition.setByX(500);
-            translateTransition.setByY(-200);
-            translateTransition.setDuration(Duration.millis(FixedVariables.ANIMATION_LENGTH));
-
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(FixedVariables.ANIMATION_LENGTH));
-            scaleTransition.setNode(node);
-            scaleTransition.setDelay(Duration.millis(FixedVariables.ANIMATION_DELAY));
-            scaleTransition.setByX(-.3f);
-            scaleTransition.setByY(-.3f);
-            scaleTransition.play();
-
-        } else {
-            translateTransition.setDuration(Duration.millis(FixedVariables.ANIMATION_LENGTH * 1.35));
-            translateTransition.setByX(600 * 2);
-        }
-        translateTransition.setCycleCount(1);
-        translateTransition.setDelay(Duration.millis(FixedVariables.ANIMATION_DELAY));
-
-        return translateTransition;
     }
 
     public void addUserInformation(String userId, String avatarID, String username) throws IOException {
@@ -146,14 +98,13 @@ public class MainApplication {
         inputStream.close();
 
         //Add user name
-        Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("Whitney-Semibold.otf"), 18);
 
         HBox usernameBox = HBoxBuilder.create().spacing(0).children(
                 LabelBuilder.create().text(username.split("#")[0]).textFill(Color.WHITE).font(font).build(),
                 LabelBuilder.create().text("#" + username.split("#")[1]).textFill(Color.valueOf("#C4CFF0")).font(font).build()
         ).build();
         usernameBox.setLayoutX(917);
-        usernameBox.setLayoutY(347);
+        usernameBox.setLayoutY(335);
         usernameBox.setPrefWidth(269);
         usernameBox.setPrefHeight(20);
         usernameBox.setAlignment(Pos.CENTER);
@@ -161,11 +112,9 @@ public class MainApplication {
         Platform.runLater(
                 () -> {
                     root.getChildren().add(usernameBox);
-                    visualiserAnimation.getChildren().add(addVisualiserAnimation(usernameBox,0));
-
+                    visualiserAnimation.getChildren().add(panelBackground.addVisualiserAnimation(usernameBox, 0));
                     long delay = (startDate + FixedVariables.ANIMATION_DELAY + FixedVariables.ANIMATION_LENGTH + 550) - (System.currentTimeMillis());
-                    if(delay<0) delay = 0;
-                    System.out.println("delay is " + delay);
+                    if (delay < 0) delay = 0;
                     visualiserAnimation.setDelay(Duration.millis(delay));
                     visualiserAnimation.play();
                 }
@@ -194,37 +143,27 @@ public class MainApplication {
         root.setOnMouseReleased(event -> goAhead = false);
     }
 
-    private void addButtonInteraction(Scene scene) {
-        //Minimize button
-        Node minimizeNode = scene.lookup("#button_minimize");
-        minimizeNode.setOnMouseEntered(event -> minimizeNode.setCursor(Cursor.HAND));
-        minimizeNode.setOnMouseExited(event -> minimizeNode.setCursor(Cursor.DEFAULT));
-        minimizeNode.setOnMouseClicked(event -> stage.setIconified(true));
-
-        //Exit button
-        Node exitNode = scene.lookup("#button_close");
-        exitNode.setOnMouseEntered(event -> exitNode.setCursor(Cursor.HAND));
-        exitNode.setOnMouseExited(event -> exitNode.setCursor(Cursor.DEFAULT));
-        exitNode.setOnMouseClicked(event -> {
-            //todo: Close the program, lol
-            Logger.SUCCESS.out("Program closed successfully. Bye!");
-
-            //This will minimize the application so it'll look like it's closing faster.
-            stage.setIconified(true);
-            System.exit(0);
-        });
+    public void setBotName(String text) {
+        changeLabel("label_botname", text);
     }
 
-    private TranslateTransition addVisualiserAnimation(Node node, int extraDelay) {
-        node.setLayoutX(node.getLayoutX() + 300);
-        TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setNode(node);
-        translateTransition.setByX(-300);
-        translateTransition.setDuration(Duration.millis(FixedVariables.ANIMATION_LENGTH / 2));
-
-        translateTransition.setCycleCount(1);
-        translateTransition.setDelay(Duration.millis(extraDelay));
-
-        return translateTransition;
+    public void setDetails(String text) {
+        changeLabel("label_details", text);
     }
+
+    public void setTimeStamp(String text) {
+        changeLabel("label_timestamp", text);
+    }
+
+    public void setState(String text) {
+        changeLabel("label_state", text);
+    }
+
+    private void changeLabel(String labelName, String text) {
+        Label label = (Label) scene.lookup("#" + labelName);
+        label.setFont(font);
+
+        label.setText(text);
+    }
+
 }

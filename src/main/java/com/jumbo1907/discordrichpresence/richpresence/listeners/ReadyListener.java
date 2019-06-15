@@ -27,7 +27,7 @@ public class ReadyListener implements ReadyCallback {
         Logger.SUCCESS.out("Welcome " + discordUser.username + "#" + discordUser.discriminator + "!");
         userFound = true;
 
-                try {
+               try {
                     Main.mainApplication.addUserInformation(discordUser.userId,discordUser.avatar, discordUser.username+"#"+ discordUser.discriminator);
                 } catch (IOException e) {
                     e.printStackTrace();

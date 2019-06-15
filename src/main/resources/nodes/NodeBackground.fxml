@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?scenebuilder-background-color 0x2c2f33ff?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
@@ -25,12 +26,21 @@
         <Color blue="0.035" green="0.035" opacity="0.000" red="0.055" fx:id="x2" />
       </stroke>
     </Rectangle>
-    <Rectangle id="visualisor_middle" fill="$x1" height="166.0" layoutX="914.0" layoutY="385.0" stroke="$x2" strokeType="INSIDE" strokeWidth="0.0" width="269.0" />
+    <Rectangle id="visualisor_middle" fill="$x1" height="166.0" layoutX="914.0" layoutY="386.0" stroke="$x2" strokeType="INSIDE" strokeWidth="0.0" width="269.0" />
     <Circle fx:id="avatar" fill="DODGERBLUE" layoutX="1049.0" layoutY="280.0" radius="48.25" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
     <Circle id="visualisor_status_1" fill="$x3" layoutX="1086.0" layoutY="313.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
     <Circle id="visualisor_status_2" fill="#87cfaf" layoutX="1086.0" layoutY="313.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
     <Circle id="visualisor_status_3" fill="#43b581" layoutX="1086.0" layoutY="313.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-    <Label id="username" alignment="CENTER" labelFor="$avatar" layoutX="914.0" layoutY="345.0" prefWidth="269.0" textFill="#999999" />
-    <HBox id="DISCORD_USERNAME" alignment="CENTER" layoutX="914.0" layoutY="331.0" prefHeight="20.0" prefWidth="269.0" />
+    <HBox id="DISCORD_USERNAME" alignment="CENTER" layoutX="924.0" layoutY="423.0" prefHeight="20.0" prefWidth="269.0" />
+    <Label id="playing_a_game" layoutX="933.0" layoutY="403.0" text="PLAYING A GAME" textFill="WHITE">
+      <font>
+        <Font name="System Bold" size="15.0" fx:id="x4" />
+      </font>
+    </Label>
+    <Rectangle id="large_image" arcHeight="10.0" arcWidth="10.0" fill="DODGERBLUE" height="70.0" layoutX="933.0" layoutY="430.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
+    <Label id="label_botname" font="$x4" layoutX="1015.0" layoutY="430.0" text="botname" textFill="WHITE" />
+    <Label id="label_details" layoutX="1015.0" layoutY="450.0" text="Details" textFill="WHITE" />
+    <Label id="label_state" layoutX="1015.0" layoutY="469.0" text="State" textFill="WHITE" />
+    <Label id="label_timeleft" layoutX="1015.0" layoutY="489.0" text="Time left" textFill="WHITE" />
   </children>
 </AnchorPane>
