@@ -32,7 +32,6 @@ import java.net.URLConnection;
 
 public class MainApplication {
 
-
     public Stage stage;
     public Scene scene;
     private Group root;
@@ -46,6 +45,7 @@ public class MainApplication {
     public ParallelTransition visualiserAnimation;
 
     public void start(Stage primaryStage) {
+
         //Load the nodes
         panelBackground = new PanelBackground(this);
         panelSelection = new PanelSelection(this);

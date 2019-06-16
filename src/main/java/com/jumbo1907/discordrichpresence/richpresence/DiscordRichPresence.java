@@ -18,6 +18,8 @@ public class DiscordRichPresence {
         DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(new ReadyListener()).build();
         DiscordRPC.discordInitialize(clientID, handlers, true);
 
-        DiscordRPC.discordUpdatePresence(new net.arikia.dev.drpc.DiscordRichPresence.Builder("test123").setEndTimestamp(System.currentTimeMillis()+10000).build());
+        DiscordRPC.discordUpdatePresence(
+                new net.arikia.dev.drpc.DiscordRichPresence.Builder("Still in development")
+                        .setBigImage("presenceproducer","Presence Producer").setStartTimestamps(System.currentTimeMillis()).build());
     }
 }
