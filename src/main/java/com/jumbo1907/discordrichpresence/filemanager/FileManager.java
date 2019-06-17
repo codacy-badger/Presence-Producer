@@ -36,8 +36,7 @@ public class FileManager {
         new File(FixedVariables.USERDIRECTORY + File.separator + "profiles").mkdir();
         Logger.SUCCESS.out("Successfully created \"profiles\" sub-directory.");
 
-        new File(FixedVariables.USERDIRECTORY + File.separator + "saves").mkdir();
-        Logger.SUCCESS.out("Successfully created \"saves\" sub-directory.");
-
+        //Default
+        JSON
     }
 }
