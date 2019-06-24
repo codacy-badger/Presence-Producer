@@ -1,9 +1,11 @@
 package com.jumbo1907.discordrichpresence.gui;
 
 import com.jumbo1907.discordrichpresence.FixedVariables;
-import com.jumbo1907.discordrichpresence.gui.nodes.PanelBackground;
-import com.jumbo1907.discordrichpresence.gui.nodes.PanelSelection;
-import com.jumbo1907.discordrichpresence.gui.nodes.SectionType;
+import com.jumbo1907.discordrichpresence.gui.nodes.background.PanelBackground;
+import com.jumbo1907.discordrichpresence.gui.nodes.profiles.PanelProfiles;
+import com.jumbo1907.discordrichpresence.gui.nodes.selection.PanelSelection;
+import com.jumbo1907.discordrichpresence.gui.nodes.selection.SectionType;
+import com.jumbo1907.discordrichpresence.gui.notification.Notification;
 import javafx.animation.ParallelTransition;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -12,22 +14,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.LabelBuilder;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 
 public class MainApplication {
@@ -37,35 +39,58 @@ public class MainApplication {
     private Group root;
 
     public long startDate = System.currentTimeMillis();
-    private Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Whitney-Semibold.otf"), 18);
+    public Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Whitney-Semibold.otf"), 18);
 
     private PanelBackground panelBackground;
-    private PanelSelection panelSelection;
+    public PanelSelection panelSelection;
+    private PanelProfiles panelProfiles;
 
     public ParallelTransition visualiserAnimation;
 
-    public void start(Stage primaryStage) {
+    private HashMap<SectionType, PanelProfiles> sectionList;
 
+    public void start(Stage primaryStage) {
         //Load the nodes
         panelBackground = new PanelBackground(this);
         panelSelection = new PanelSelection(this);
+        panelProfiles = new PanelProfiles(this);
+
+        sectionList = new HashMap<>();
+        sectionList.put(SectionType.PROFILES, panelProfiles);
 
         stage = primaryStage;
 
         //Remove the top bar
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
-        root = new Group(panelBackground.getNode(), panelSelection.getNode(), panelBackground.getRectangle(), panelBackground.getImageView());
+        //Close and minimize buttons
+        Rectangle button_minimize = new Rectangle();
+        button_minimize.setX(1139);
+        button_minimize.setY(3);
+        button_minimize.setWidth(27);
+        button_minimize.setHeight(27);
+        button_minimize.setFill(new ImagePattern(new Image(getClass().getClassLoader().getResourceAsStream("images/button_minimize.png"))));
+        panelBackground.addButtonInteraction(button_minimize, true);
+
+        Rectangle button_exit = new Rectangle();
+        button_exit.setX(1166);
+        button_exit.setY(3);
+        button_exit.setWidth(27);
+        button_exit.setHeight(27);
+        button_exit.setFill(new ImagePattern(new Image(getClass().getClassLoader().getResourceAsStream("images/button_close.png"))));
+
+        panelBackground.addButtonInteraction(button_exit, true);
+
+        root = new Group(panelBackground.getNode(),sectionList.get(panelSelection.currentSection).getNode(),panelSelection.getNode(), panelBackground.getRectangle(), panelBackground.getImageView(), button_exit, button_minimize);
         addGuiMovingListeners(root);
-        scene = new Scene(root, 1200, 600);
+        scene = new Scene(root, FixedVariables.GUI_WIDTH, FixedVariables.GUI_HEIGHT);
+
+        //Hook notifications
+        new Notification(root);
 
         //This will add the layout background has
         panelBackground.addLayout();
 
-
-        //Add minimize button
-        ImageView minimizeNode = (ImageView) scene.lookup("#button_minimize");
-        minimizeNode.setImage(new Image(getClass().getClassLoader().getResourceAsStream("images/button_minimize.png")));
 
         //Add font to selection
         panelSelection.addFonts();
@@ -162,5 +187,6 @@ public class MainApplication {
 
         label.setText(text);
     }
+
 
 }

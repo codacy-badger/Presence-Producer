@@ -1,7 +1,8 @@
-package com.jumbo1907.discordrichpresence.gui.nodes;
+package com.jumbo1907.discordrichpresence.gui.nodes.background;
 
 import com.jumbo1907.discordrichpresence.FixedVariables;
 import com.jumbo1907.discordrichpresence.gui.MainApplication;
+import com.jumbo1907.discordrichpresence.gui.nodes.PanelHandler;
 import com.jumbo1907.discordrichpresence.utils.Logger;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
@@ -21,7 +22,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class PanelBackground {
+public class PanelBackground implements PanelHandler {
 
     private final MainApplication mainApplication;
     private ImageView imageView;
@@ -36,6 +37,7 @@ public class PanelBackground {
             e.printStackTrace();
         }
 
+        node.setPickOnBounds(true);
         //The orange bar
         rectangle = new Rectangle();
         rectangle.setWidth(FixedVariables.GUI_WIDTH);
@@ -57,16 +59,11 @@ public class PanelBackground {
         ParallelTransition parallelTransition = new ParallelTransition(addStartupAnimation(imageView, true), addStartupAnimation(rectangle, false));
         parallelTransition.play();
 
-        //Add close button
-        ImageView exitNode = (ImageView) mainApplication.scene.lookup("#button_close");
-        exitNode.setImage(new Image(getClass().getClassLoader().getResourceAsStream("images/button_close.png")));
 
         //Default avatar
         Circle avatar = (Circle) mainApplication.scene.lookup("#avatar");
         avatar.setFill(new ImagePattern(new Image(getClass().getClassLoader().getResourceAsStream("images/default_avatar.png"))));
 
-        //Add button functionality
-        addButtonInteraction(mainApplication.scene);
 
         //Adds image to visualiser
         Rectangle largeImage = (Rectangle) mainApplication.scene.lookup("#large_image");
@@ -89,34 +86,31 @@ public class PanelBackground {
                 addVisualiserAnimation(mainApplication.scene.lookup("#large_image"), 150)
         );
     }
-    private void addButtonInteraction(Scene scene) {
-        //Minimize button
-        Node minimizeNode = scene.lookup("#button_minimize");
-        minimizeNode.setOnMouseEntered(event -> minimizeNode.setCursor(Cursor.HAND));
-        minimizeNode.setOnMouseExited(event -> minimizeNode.setCursor(Cursor.DEFAULT));
-        minimizeNode.setOnMouseClicked(event -> mainApplication.stage.setIconified(true));
+    public void addButtonInteraction(Node node, boolean minimize) {
+        node.setOnMouseEntered(event -> node.setCursor(Cursor.HAND));
+        node.setOnMouseExited(event -> node.setCursor(Cursor.DEFAULT));
 
-        //Exit button
-        Node exitNode = scene.lookup("#button_close");
-        exitNode.setOnMouseEntered(event -> exitNode.setCursor(Cursor.HAND));
-        exitNode.setOnMouseExited(event -> exitNode.setCursor(Cursor.DEFAULT));
-        exitNode.setOnMouseClicked(event -> {
-            //todo: Close the program, lol
+        if(minimize){
+            node.setOnMouseClicked(event -> mainApplication.stage.setIconified(true));
+        } else {
+            node.setOnMouseClicked(event -> {
+                //todo: Close the program, lol
 
-            long millis = System.currentTimeMillis() - mainApplication.startDate;
-            String length = String.format("%02d minutes and %02d seconds",
-                    TimeUnit.MILLISECONDS.toMinutes(millis),
-                    TimeUnit.MILLISECONDS.toSeconds(millis) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
-            );
+                long millis = System.currentTimeMillis() - mainApplication.startDate;
+                String length = String.format("%02d minutes and %02d seconds",
+                        TimeUnit.MILLISECONDS.toMinutes(millis),
+                        TimeUnit.MILLISECONDS.toSeconds(millis) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
+                );
 
 
-            Logger.SUCCESS.out("Program closed successfully. Bye! (" + length + ").");
+                Logger.SUCCESS.out("Program closed successfully. Bye! (" + length + ").");
 
-            //This will minimize the application so it'll look like it's closing faster.
-            mainApplication.stage.setIconified(true);
-            System.exit(0);
-        });
+                //This will minimize the application so it'll look like it's closing faster.
+                mainApplication.stage.setIconified(true);
+                System.exit(0);
+            });
+        }
     }
 
     public TranslateTransition addVisualiserAnimation(Node node, int extraDelay) {
@@ -150,7 +144,7 @@ public class PanelBackground {
 
         } else {
             translateTransition.setDuration(Duration.millis(FixedVariables.ANIMATION_LENGTH * 1.35));
-            translateTransition.setByX(600 * 2);
+            translateTransition.setByX(FixedVariables.GUI_HEIGHT * 2);
         }
         translateTransition.setCycleCount(1);
         translateTransition.setDelay(Duration.millis(FixedVariables.ANIMATION_DELAY));

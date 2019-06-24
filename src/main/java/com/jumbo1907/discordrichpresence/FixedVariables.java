@@ -29,4 +29,8 @@ public class FixedVariables {
     //public static final
 
 
+    //Notification
+    public static final int NORTIFICATION_POP_LENGTH = 400;
+
+
 }

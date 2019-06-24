@@ -35,9 +35,9 @@ public class LogWriter {
             logFile = new File(logDirectory + File.separator + formatted + " " + counter + ".txt");
         }
         if (counter != 0) {
-            Logger.SUCCESS.out("Logfile succesfully created! (\"" + logDirectory + File.separator + formatted + " " + counter + ".txt\")");
+            Logger.SUCCESS.out("Logfile successfully created! (\"" + logDirectory + File.separator + formatted + " " + counter + ".txt\")");
         } else
-            Logger.SUCCESS.out("Logfile succesfully created! (\"" + logDirectory + File.separator + formatted + ".txt\")");
+            Logger.SUCCESS.out("Logfile successfully created! (\"" + logDirectory + File.separator + formatted + ".txt\")");
         try {
             logFile.createNewFile();
         } catch (IOException e) {

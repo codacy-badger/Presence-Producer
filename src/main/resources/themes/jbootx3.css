@@ -361,10 +361,10 @@ VBox > .split-menu-button.last > .arrow-button {
     -fx-background-color: #333333;
 }
 
-.check-menu-item:checked:hover > .left-container > .check,
-.check-menu-item:checked:focused > .left-container > .check,
-.radio-menu-item:checked:hover > .left-container > .radio,
-.radio-menu-item:checked:focused > .left-container > .radio {
+.check-menu-item:hover > .left-container > .check,
+.check-menu-item:focused > .left-container > .check,
+.radio-menu-item:hover > .left-container > .radio,
+.radio-menu-item:focused > .left-container > .radio {
     -fx-background-color: #333333;
 }
 
@@ -930,3 +930,17 @@ VBox > .split-menu-button.last > .arrow-button {
 .slider:vertical .track {
     -fx-pref-width: 5;
 }
+
+
+/******************************************************************************
+ *
+ * Notification shit
+ *
+ *****************************************************************************/
+
+.notification-bar>.pane {
+    -fx-background-color: "rgba(255, 255, 255, 0);";
+    -fx-padding: 0 0 0 0;
+    -fx-background-insets: 0, 1, 2;
+}
+

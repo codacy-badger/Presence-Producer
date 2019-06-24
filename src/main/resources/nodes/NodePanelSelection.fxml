@@ -16,18 +16,18 @@
       </fill>
     </Rectangle>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ea5e0000" height="598.0" layoutX="189.0" layoutY="2.0" smooth="true" stroke="$x1" strokeType="INSIDE" strokeWidth="2.4" width="2.0" />
-    <Rectangle id="label_selection_profiles_box" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="7.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="182.0">
+    <Rectangle id="label_selection_configuration_box" arcHeight="5.0" arcWidth="5.0" height="50.0" layoutX="7.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="182.0">
       <fill>
         <Color blue="1.000" green="0.565" opacity="0.000" red="0.118" fx:id="x2" />
       </fill>
     </Rectangle>
     <Rectangle id="label_selection_prioritymanager_box" arcHeight="5.0" arcWidth="5.0" fill="$x2" height="50.0" layoutX="7.0" layoutY="192.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="182.0" />
-    <Rectangle id="label_selection_configuration_box" arcHeight="5.0" arcWidth="5.0" fill="#1e90ff00" height="50.0" layoutX="7.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="182.0" />
+    <Rectangle id="label_selection_profiles_box" arcHeight="5.0" arcWidth="5.0" fill="#1e90ff00" height="50.0" layoutX="7.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="182.0" />
     <Rectangle id="label_selection_presets_box" arcHeight="5.0" arcWidth="5.0" fill="$x2" height="50.0" layoutX="7.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="182.0" />
     <Rectangle id="label_selection_settings_box" arcHeight="5.0" arcWidth="5.0" fill="$x2" height="50.0" layoutX="7.0" layoutY="545.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="182.0" />
-    <Label id="label_selection_configuration" layoutX="14.0" layoutY="100.0" prefHeight="33.0" prefWidth="222.0" text="Configuration" textFill="WHITE" />
+    <Label id="label_selection_configuration" layoutX="14.0" layoutY="150.0" prefHeight="33.0" prefWidth="222.0" text="Configuration" textFill="WHITE" />
     <Label id="label_selection_selection" alignment="CENTER" layoutX="0.0" layoutY="46.0" prefHeight="33.0" prefWidth="196.0" text="Selection" textAlignment="CENTER" textFill="WHITE" underline="false" />
-    <Label id="label_selection_profiles" layoutX="14.0" layoutY="150.0" prefHeight="33.0" prefWidth="182.0" text="Profiles" textFill="WHITE" />
+    <Label id="label_selection_profiles" layoutX="14.0" layoutY="100.0" prefHeight="33.0" prefWidth="182.0" text="Profiles" textFill="WHITE" />
     <Label id="label_selection_prioritymanager" layoutX="14.0" layoutY="200.0" prefHeight="33.0" prefWidth="222.0" text="Priority Manager" textFill="WHITE" />
     <Label id="label_selection_presets" layoutX="14.0" layoutY="250.0" prefHeight="33.0" prefWidth="222.0" text="Presets" textFill="WHITE" />
     <Label id="label_selection_settings" layoutX="14.0" layoutY="553.0" prefHeight="33.0" prefWidth="222.0" text="Settings" textFill="WHITE" />

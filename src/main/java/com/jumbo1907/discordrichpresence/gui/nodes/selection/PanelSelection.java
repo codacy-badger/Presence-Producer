@@ -1,9 +1,9 @@
-package com.jumbo1907.discordrichpresence.gui.nodes;
+package com.jumbo1907.discordrichpresence.gui.nodes.selection;
 
 import com.jumbo1907.discordrichpresence.FixedVariables;
 import com.jumbo1907.discordrichpresence.gui.MainApplication;
+import com.jumbo1907.discordrichpresence.gui.nodes.PanelHandler;
 import com.jumbo1907.discordrichpresence.utils.Logger;
-import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -20,12 +20,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class PanelSelection {
+public class PanelSelection implements PanelHandler {
+
 
     private final MainApplication mainApplication;
     private Node node;
-    private String[] labels = {"configuration", "profiles", "selection", "prioritymanager", "presets", "settings"};
-    private SectionType currentSection = SectionType.CONFIGURATION;
+    private String[] labels = {"profiles", "configuration", "selection", "prioritymanager", "presets", "settings"};
+    public SectionType currentSection = SectionType.PROFILES;
 
     //This means this won't get used in click and hover
     private ArrayList<String> blacklist = new ArrayList<>(Arrays.asList("selection"));
@@ -39,13 +40,13 @@ public class PanelSelection {
         }
     }
 
+
+
     //This will give every label the correct font
     public void addFonts() {
-        Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Whitney-Semibold.otf"), 18);
-
         for (final String labelName : labels) {
             Label label = (Label) mainApplication.scene.lookup("#label_selection_" + labelName);
-            label.setFont(font);
+            label.setFont(mainApplication.font);
         }
     }
 
@@ -57,6 +58,7 @@ public class PanelSelection {
             rectangle.setFill(new Color(0, 0, 0, 0));
             currentSection = newSectionType;
         }
+
 
         Rectangle newRectangle = (Rectangle) mainApplication.scene.lookup("#label_selection_" + currentSection.toString().toLowerCase() + "_box");
         newRectangle.setFill(Paint.valueOf(FixedVariables.COLOR_BLURPLE_DARKER));
@@ -125,7 +127,10 @@ public class PanelSelection {
         }
     }
 
+    @Override
     public Node getNode() {
         return node;
     }
+
+
 }

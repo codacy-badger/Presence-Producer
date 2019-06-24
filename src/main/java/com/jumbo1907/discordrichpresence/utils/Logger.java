@@ -21,7 +21,7 @@ public enum Logger {
         System.out.println(logMessage);
 
         //Write to file
-        if(Main.fileManager != null && Main.fileManager.logWriter != null){
+        if(Main.fileManager != null && Main.fileManager.logWriter != null && Main.fileManager.logWriter.logPrintWriter != null){
             Main.fileManager.logWriter.logPrintWriter.println(logMessage);
             Main.fileManager.logWriter.logPrintWriter.flush();
         }
